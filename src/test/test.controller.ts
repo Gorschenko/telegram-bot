@@ -7,6 +7,10 @@ export class TestController {
 
   @Get()
   async notify(): Promise<void> {
-    return this.telegramService.sendMessage('test');
+    try {
+      return this.telegramService.sendMessage('test');
+    } catch (e) {
+      console.log(e);
+    }
   }
 }

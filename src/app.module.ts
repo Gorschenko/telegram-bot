@@ -6,6 +6,9 @@ import { TestModule } from './test/test.module';
 
 @Module({
   imports: [
+    ConfigModule.forRoot({
+      isGlobal: true,
+    }),
     TestModule,
     TelegramModule.forRootAsync({
       imports: [ConfigModule],
@@ -13,7 +16,5 @@ import { TestModule } from './test/test.module';
       useFactory: getTelegramConfig,
     }),
   ],
-  controllers: [],
-  providers: [],
 })
 export class AppModule {}
