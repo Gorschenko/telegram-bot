@@ -1,10 +1,13 @@
 import { Container, ContainerModule, interfaces } from 'inversify'
 import { App } from './app'
+import { ConfigService } from './config/config.service'
+import { IConfigService } from './config/config.service.interface'
 import { TYPES } from './types'
 
-export const appBildings = new ContainerModule((bind: interfaces.Bind) =>
-  bind<App>(TYPES.Application).to(App),
-)
+export const appBildings = new ContainerModule((bind: interfaces.Bind) => {
+  bind<App>(TYPES.Application).to(App)
+  bind<IConfigService>(TYPES.ConfigService).to(ConfigService).inSingletonScope()
+})
 
 interface IBootstrapReturn {
   appContainer: Container
