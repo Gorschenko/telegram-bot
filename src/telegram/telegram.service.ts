@@ -1,6 +1,6 @@
 import { Inject, Injectable } from '@nestjs/common';
-import { session, Telegraf } from 'telegraf';
-// import LocalSession from 'telegraf-session-local';
+import { Telegraf } from 'telegraf';
+import LocalSession from 'telegraf-session-local';
 import { Command } from './commands/command.class';
 import { StartCommand } from './commands/start.command';
 import { IBotContext } from './context/context.interface';
@@ -15,7 +15,7 @@ export class TelegramService {
 
   constructor(@Inject(TELEGRAM_MODULE_OPTIONS) options: ITelegramOptions) {
     this.bot = new Telegraf<IBotContext>(options.token);
-    this.bot.use(session());
+    this.bot.use(new LocalSession({ database: 'sessions.json' }).middleware());
     this.options = options;
     this.init();
   }
